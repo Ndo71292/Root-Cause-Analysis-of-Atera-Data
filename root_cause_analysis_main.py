@@ -40,7 +40,7 @@ from Functions import (
     convert_created_to_datetime,preprocess_text,update_preprocessed_comments,fetch_tickets_from_api,
     append_agents_to_csv,convert_ticket_created_to_datetime,merge_dataframes_and_join,
     generate_and_show_comparison_visualization,perform_clustering_and_visualize_plotly,append_alerts_to_s3,
-    load_tickets_data_from_s3,load_agents_data_from_s3,load_alerts_data_from_s3
+    load_tickets_data_from_s3,load_agents_data_from_s3,load_alerts_data_from_s3,clustering
 )
 
 
