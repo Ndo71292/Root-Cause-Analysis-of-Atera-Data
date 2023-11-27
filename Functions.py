@@ -57,7 +57,7 @@ def fetch_agents_from_api(api_key, last_timestamp=None):
     try:
         response = requests.get(url, headers=headers, params=params)
         response.raise_for_status()  # Raise an exception for HTTP errors (non-2xx responses)
-        agents_data = response.json().get("items", [])  # Assuming the API response format is similar
+        agents_data = response.json().get("items", [])  
         agents_df = pd.DataFrame(agents_data)
         return agents_df
     except requests.exceptions.RequestException as e:
@@ -209,9 +209,7 @@ def investigate_agents_data(agents_data):
         print("\nData types of columns:")
         print(agents_data.dtypes)
 
-        # Step 5: Clean data (if needed)
-        # For example, filling missing values with a specific value (e.g., 0)
-        # agents_data.fillna(0, inplace=True)
+       
 
         return agents_data
 
