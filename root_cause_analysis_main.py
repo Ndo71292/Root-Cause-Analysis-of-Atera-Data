@@ -68,8 +68,7 @@ def main():
     api_key = 'xxxxxxxxxxxxxxxxxxxxx'
     bucket_name= 'ateradata'
     ticket_s3_key='tickets/tickets.csv'
-    #csv_file_tickets = "tickets.csv"  # Specify the correct file path here
-    alerts_s3_key = "alerts.csv"  # Specify the correct file path here
+    alerts_s3_key = "alerts.csv"  
     agents_s3_key = "agents.csv"
    
     
