@@ -34,13 +34,9 @@ import io
 
 
 from Functions import (
-    process_alerts,process_tickets,process_agents,convert_agent_created_to_datetime,clean_tickets_data,
-    fetch_alerts_from_api, investigate_agents_data,print_alerts_csv,preprocess_text_with_tfidf
-    ,convert_ticket_created_to_datetime,process_ticket_data,identify_relevant_text,fetch_new_comments_for_ticket,
-    convert_created_to_datetime,preprocess_text,update_preprocessed_comments,fetch_tickets_from_api,
-    append_agents_to_csv,convert_ticket_created_to_datetime,merge_dataframes_and_join,
-    generate_and_show_comparison_visualization,perform_clustering_and_visualize_plotly,append_alerts_to_s3,
-    load_tickets_data_from_s3,load_agents_data_from_s3,load_alerts_data_from_s3,clustering
+    process_alerts,process_agents,convert_agent_created_to_datetime,
+    fetch_alerts_from_api, investigate_agents_data,print_alerts_csv,identify_relevant_text,
+    convert_created_to_datetime,append_agents_to_csv,append_alerts_to_s3,load_agents_data_from_s3,load_alerts_data_from_s3,clustering
 )
 
 
@@ -67,7 +63,6 @@ def main():
     
     api_key = 'xxxxxxxxxxxxxxxxxxxxx'
     bucket_name= 'ateradata'
-    ticket_s3_key='tickets/tickets.csv'
     alerts_s3_key = "alerts.csv"  
     agents_s3_key = "agents.csv"
    
@@ -77,7 +72,7 @@ def main():
         try:
             
             
-            process_tickets(api_key,bucket_name, ticket_s3_key)
+            
             process_agents(api_key,bucket_name, agents_s3_key)
             process_alerts(api_key,bucket_name,alerts_s3_key)
 
