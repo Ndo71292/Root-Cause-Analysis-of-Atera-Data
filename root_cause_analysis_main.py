@@ -65,6 +65,7 @@ def main():
     bucket_name= 'ateradata'
     alerts_s3_key = "alerts.csv"  
     agents_s3_key = "agents.csv"
+    merged_data_key = "MergedData.csv"
    
     
 
