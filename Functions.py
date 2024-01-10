@@ -351,7 +351,23 @@ def load_alerts_data_from_s3(bucket_name, alerts_s3_key):
         print(f"Error loading data from S3: {e}")
         return pd.DataFrame()
            
+# Function to load alerts data from S3
+def load_merged_data_from_s3(bucket_name, merged_data_key):
+    try:
+        # Create an S3 client
+        s3_client = boto3.client('s3', region_name='us-east-1')
 
+        # Load data from S3
+        obj = s3_client.get_object(Bucket=bucket_name, Key=merged_data_key)
+        merged_data = pd.read_csv(obj['Body'])
+
+        return merged_data
+    except NoCredentialsError:
+        print("No AWS credentials found. Make sure you have configured your AWS CLI or SDK properly.")
+    except Exception as e:
+        print(f"Error loading data from S3: {e}")
+        return pd.DataFrame()
+           
 
 
 
