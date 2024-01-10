@@ -194,28 +194,7 @@ def load_agents_data_from_s3(bucket_name, agents_s3_key):
         print(f"Error loading agents data from S3: {e}")
         return pd.DataFrame()
 
-def investigate_agents_data(agents_data):
-    try:
-        # Step 2: Display the first few rows to check headers
-        print("First few rows of the agents data:")
-        print(agents_data.head())
 
-        # Step 3: Check for extra rows or data
-        num_rows, num_columns = agents_data.shape
-        print(f"Number of rows in the agents data: {num_rows}")
-        print(f"Number of columns in the agents data: {num_columns}")
-
-        # Step 4: Check data types of columns
-        print("\nData types of columns:")
-        print(agents_data.dtypes)
-
-       
-
-        return agents_data
-
-    except Exception as e:
-        print("Error:", e)
-        return None
 
 #Functions for alerts
 def fetch_alerts_from_api(api_key, last_timestamp=None):
@@ -372,35 +351,6 @@ def load_alerts_data_from_s3(bucket_name, alerts_s3_key):
         print(f"Error loading data from S3: {e}")
         return pd.DataFrame()
            
-# Function to load merged data from S3 by Customer ID (mergedbycid)
-def load_mergedbycid_data_from_s3(bucket_name, merged_bycid_key):
-    try:
-        # Create an S3 client
-        s3_client = boto3.client('s3', region_name='us-east-1')
-
-        # Load data from S3
-        obj = s3_client.get_object(Bucket=bucket_name, Key=merged_bycid_key)
-        mergedbycid_data = pd.read_csv(obj['Body'])
-
-        return mergedbycid_data  # Return the loaded data
-    except Exception as e:
-        print(f"Error loading data from S3: {e}")
-        return pd.DataFrame()
-
-# Function to load merged data from S3 by Device Guid (mergedbydg)
-def load_mergedbydg_data_from_s3(bucket_name, merged_bydg_key):
-    try:
-        # Create an S3 client
-        s3_client = boto3.client('s3', region_name='us-east-1')
-
-        # Load data from S3
-        obj = s3_client.get_object(Bucket=bucket_name, Key=merged_bydg_key)
-        merged_bydg_data = pd.read_csv(obj['Body'])
-
-        return merged_bydg_data  # Return the loaded data
-    except Exception as e:
-        print(f"Error loading data from S3: {e}")
-        return pd.DataFrame()
 
 
 
