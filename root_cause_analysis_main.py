@@ -30,7 +30,7 @@ from sklearn.decomposition import PCA
 import boto3
 from botocore.exceptions import NoCredentialsError
 import io
-
+from sklearn.metrics import silhouette_score, davies_bouldin_score
 
 
 from Functions import (
@@ -49,50 +49,45 @@ logger = logging.getLogger(__name__)
 
 WAIT_TIME_SECONDS = 1800
 
-merged_dataset = None
+while True:
+    try:
+        process_agents(api_key, bucket_name, agents_s3_key)
+        process_alerts(api_key, bucket_name, alerts_s3_key)
+        merged_dataset = load_merged_data_from_s3(bucket_name, merged_data_key)
 
-def main():
-    global merged_dataset 
-    
-   
-    os.environ['AWS_ACCESS_KEY_ID'] = 'xxxxxxxxxxxxxxxxxxxxxxxxx'
-    os.environ['AWS_SECRET_ACCESS_KEY'] = 'xxxxxxxxxxxxxxxxxxxxxxxxxxx+'
-    os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
-    
-    
-    
-    api_key = 'xxxxxxxxxxxxxxxxxxxxx'
-    bucket_name= 'ateradata'
-    alerts_s3_key = "alerts.csv"  
-    agents_s3_key = "agents.csv"
-    merged_data_key = "MergedData.csv"
-   
-    
+        # Choose the number of clusters
+        num_clusters = 3
 
-    while True:
-        try:
-            
-            
-            
-            process_agents(api_key,bucket_name, agents_s3_key)
-            process_alerts(api_key,bucket_name,alerts_s3_key)
+        # Apply K-Means clustering on combined features
+        kmeans_combined = KMeans(n_clusters=num_clusters, random_state=42)
+        merged_dataset['combined_cluster'] = kmeans_combined.fit_predict(merged_dataset['combined_matrix'])
 
-            
+        # Evaluate clustering performance
+        silhouette_metric = silhouette_score(merged_dataset['combined_matrix'], merged_dataset['combined_cluster'])
+        davies_bouldin_metric = davies_bouldin_score(merged_dataset['combined_matrix'], merged_dataset['combined_cluster'])
 
-        except Exception as e:
-            print("An error occurred:", e)
-        
-        # Calculate the timestamp for the next fetch
-        next_fetch_time = datetime.now() + timedelta(minutes=30)
+        # Display metrics
+        print(f"Silhouette Score: {silhouette_metric}")
+        print(f"Davies-Bouldin Index: {davies_bouldin_metric}")
 
-        # Print a message indicating when the next fetch is scheduled
-        logger.info(f"Next fetch scheduled at: {next_fetch_time}")
+        # Section 1: Display the pairplot of numeric features with clusters
+        numeric_features = merged_dataset.select_dtypes(include=['float64', 'int64']).columns
+        features_for_plot = numeric_features.tolist() + ['combined_cluster']
+        sns.pairplot(merged_dataset[features_for_plot], hue='combined_cluster', palette='viridis', diag_kind='hist')
+        plt.suptitle('Pairplot of Numeric Features with Clusters')
+        plt.show()
 
-        # Wait for 30 minutes before fetching data again
-        time.sleep(WAIT_TIME_SECONDS)
-        
-       
-        
+    except Exception as e:
+        print("An error occurred:", e)
+
+    # Calculate the timestamp for the next fetch
+    next_fetch_time = datetime.now() + timedelta(minutes=30)
+
+    # Print a message indicating when the next fetch is scheduled
+    logger.info(f"Next fetch scheduled at: {next_fetch_time}")
+
+    # Wait for 30 minutes before fetching data again
+    time.sleep(WAIT_TIME_SECONDS)
 
 
 
