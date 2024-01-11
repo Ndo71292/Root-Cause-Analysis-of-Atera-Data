@@ -265,7 +265,7 @@ def process_alerts(api_key, bucket_name, alerts_s3_key):
 
         # Check for negative values in numeric columns
         numeric_columns = ['AlertID', 'TicketID', 'PollingCyclesCount']
-        numeric_columns = [col for col in numeric_columns if combined_alerts_data[col].dtype == 'int64']  # Adjust the dtype if necessary
+        numeric_columns = [col for col in numeric_columns if combined_alerts_data[col].dtype == 'int64']  
         negative_values = combined_alerts_data[numeric_columns].lt(0).any()
 
         # Drop rows with missing values in specific columns
