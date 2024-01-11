@@ -3,6 +3,7 @@
 ## Step 1: Data Collection and Storage
 
 - I created API credentials in the Atera admin center to pull Agents and Alerts data and used two functions (`fetch_agents_from_api` and `fetch_alerts_from_api`) to obtain the data.
+-The data is fetched periodically, with a 30-minute interval between each fetching event.
 
 - The functions take two arguments (API key and last timestamp). The last timestamp is useful for keeping track of the time period the data was fetched.
 
