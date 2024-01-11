@@ -31,3 +31,7 @@ The scope of this project encompasses the analysis of machine agents' informatio
 
 
 Click to go to the code [Functions Module](https://github.com/Ndo71292/Root-Cause-Analysis-of-Atera-Data/blob/main/Functions.py)
+
+Click to go to the [Project Interpretation](https://github.com/Ndo71292/Root-Cause-Analysis-of-Atera-Data/blob/main/Project%20Interpretation.md)
+
+Click to go to the [Main Script](https://github.com/Ndo71292/Root-Cause-Analysis-of-Atera-Data/blob/main/root_cause_analysis_main.py)
