@@ -26,3 +26,8 @@ The scope of this project encompasses the analysis of machine agents' informatio
 3. Root Cause Discovery: Uncover potential root causes behind recurring technical issues by examining the composition of clusters.
 
 4. Proactive Measures: Provide actionable insights to enable organizations to take proactive measures, prevent future incidents, and enhance system reliability.
+
+ 
+
+
+Click here to go to the code [![](https://github.com/Ndo71292/Root-Cause-Analysis-of-Atera-Data/blob/main/Functions.py)
